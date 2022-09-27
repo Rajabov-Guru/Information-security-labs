@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Information-security-labs/static/css/main.31d6cfe0.css",
-    "main.js": "/Information-security-labs/static/js/main.2f7d4f5b.js",
+    "main.js": "/Information-security-labs/static/js/main.a437c1d6.js",
     "index.html": "/Information-security-labs/index.html",
-    "main.2f7d4f5b.js.map": "/Information-security-labs/static/js/main.2f7d4f5b.js.map"
+    "main.a437c1d6.js.map": "/Information-security-labs/static/js/main.a437c1d6.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.2f7d4f5b.js"
+    "static/js/main.a437c1d6.js"
   ]
 }
