@@ -9,6 +9,7 @@ import {useState} from "react";
 import LabOne from "./components/LabOne";
 import LabTwo from "./components/LabTwo";
 import LabThree from "./components/LabThree";
+import LabFour from "./components/LabFour";
 
 const getTabs = ()=>{
     const tabs = [];
@@ -48,6 +49,9 @@ function App() {
               </TabPanel>
               <TabPanel value={'3'}>
                   <LabThree/>
+              </TabPanel>
+              <TabPanel value={'4'}>
+                  <LabFour/>
               </TabPanel>
           </TabContext>
       </Container>
