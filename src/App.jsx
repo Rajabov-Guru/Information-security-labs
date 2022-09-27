@@ -8,6 +8,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import {useState} from "react";
 import LabOne from "./components/LabOne";
 import LabTwo from "./components/LabTwo";
+import LabThree from "./components/LabThree";
 
 const getTabs = ()=>{
     const tabs = [];
@@ -45,7 +46,9 @@ function App() {
               <TabPanel value={'2'}>
                   <LabTwo/>
               </TabPanel>
-              <TabPanel value={'3'}>Item Three</TabPanel>
+              <TabPanel value={'3'}>
+                  <LabThree/>
+              </TabPanel>
           </TabContext>
       </Container>
     </div>

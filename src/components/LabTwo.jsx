@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import {decode, encode} from "../helpers/labTwo";
 import Title from "./common/Title";
+import StackRow from "./common/StackRow";
 
 
 const M = 7;
@@ -24,6 +25,32 @@ const getEmptyRows = (length)=>{
 const getEmptyCells = (length)=>{
     return Array.from({length:N-length},
         ()=>'_');
+}
+
+const ShifrTable = ({words})=>{
+    return(
+        <table border={'1px solid black'} cellPadding={'5px'}>
+            <tbody>
+            {words.map(word=>
+                <tr>
+                    {word.split('').map(letter=>
+                        <td>{letter}</td>
+                    )}
+                    {getEmptyCells(word.length).map(letter=>
+                        <td>{letter}</td>
+                    )}
+                </tr>
+            )}
+            {getEmptyRows(words.length).map(item=>
+                <tr>
+                    {item.split('').map(letter=>
+                        <td>{letter}</td>
+                    )}
+                </tr>
+            )}
+            </tbody>
+        </table>
+    );
 }
 
 
@@ -90,44 +117,14 @@ const LabTwo = () => {
                 Загрузить файл
                 <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
             </Button>
-            <Stack justifyContent={'space-between'}
-                   direction="row"
-                   divider={<Divider orientation="vertical" flexItem />}
-                   spacing={2}>
-                <Button
-                    onClick={()=>shifr()}
-                >Закодировать</Button>
-                <Button
-                    onClick={()=>deshifr()}
-                >Декодировать</Button>
-            </Stack>
+            <StackRow>
+                <Button onClick={()=>shifr()}>Зашифровать</Button>
+                <Button onClick={()=>deshifr()}>Расшифровать</Button>
+            </StackRow>
             <Stack direction="row" justifyContent={'center'}>
-                <table border={'1px solid black'} cellPadding={'5px'}>
-                    <tbody>
-                    {words.map(word=>
-                        <tr>
-                            {word.split('').map(letter=>
-                                <td>{letter}</td>
-                            )}
-                            {getEmptyCells(word.length).map(letter=>
-                                <td>{letter}</td>
-                            )}
-                        </tr>
-                    )}
-                    {getEmptyRows(words.length).map(item=>
-                        <tr>
-                            {item.split('').map(letter=>
-                                <td>{letter}</td>
-                            )}
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
+                <ShifrTable words={words}/>
             </Stack>
-            <Stack justifyContent={'space-between'}
-                   direction="row"
-                   divider={<Divider orientation="vertical" flexItem />}
-                   spacing={2}>
+            <StackRow>
                 <TextField
                     fullWidth
                     id="outlined-multiline-flexible"
@@ -144,7 +141,7 @@ const LabTwo = () => {
                     multiline
                     value={result}
                 />
-            </Stack>
+            </StackRow>
         </Stack>
     );
 };

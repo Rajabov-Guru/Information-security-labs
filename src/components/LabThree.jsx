@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import {decode, encode} from "../helpers/labThree";
 import {Button, FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
-import {decode, encode} from "../helpers/labOne";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
 
-
-const LabOne = () => {
+const LabThree = () => {
     const [source, setSource] = useState('');
     const [result, setResult] = useState('');
     const [interactive, setInteractive] = useState(false);
@@ -43,7 +42,7 @@ const LabOne = () => {
 
     return (
         <Stack spacing={3}>
-            <Title text={'"Сказочный" алгоритм'}/>
+            <Title text={'Метод простой замены'}/>
             <Stack justifyContent={'flex-end'}
                    direction="row">
                 <FormGroup>
@@ -81,4 +80,4 @@ const LabOne = () => {
     );
 };
 
-export default LabOne;
+export default LabThree;
