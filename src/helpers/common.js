@@ -21,7 +21,6 @@ export function getGamma(n){
         if(x<1){
             x += 31;
         }
-        console.log(x);
         result.push(String.fromCharCode(x+1039));
     }
     return result.join('');

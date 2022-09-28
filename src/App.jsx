@@ -11,6 +11,7 @@ import LabTwo from "./components/LabTwo";
 import LabThree from "./components/LabThree";
 import LabFour from "./components/LabFour";
 import LabFive from "./components/LabFive";
+import LabSix from "./components/LabSix";
 
 const getTabs = ()=>{
     const tabs = [];
@@ -58,6 +59,9 @@ function App() {
               </TabPanel>
               <TabPanel value={'5'}>
                   <LabFive/>
+              </TabPanel>
+              <TabPanel value={'6'}>
+                  <LabSix/>
               </TabPanel>
           </TabContext>
       </Container>
