@@ -1,4 +1,33 @@
 
+export function getRandomNumbers(n){
+    let numbers = [];
+    let m = 3525;
+    let a = 2;
+    let c = 1283;
+    let x = 7;
+    for(let i=0;i<n;i++){
+        x = (a * x + c) % m;
+        numbers.push(x);
+    }
+
+    return numbers;
+}
+
+export function getGamma(n){
+    let keys = getRandomNumbers(n);
+    let result = [];
+    for (let i = 0; i < keys.length; i++) {
+        let x= keys[i]%31;
+        if(x<1){
+            x += 31;
+        }
+        console.log(x);
+        result.push(String.fromCharCode(x+1039));
+    }
+    return result.join('');
+}
+
+
 export function sumLetterByKey(letter, keyItem){
     let letterCode = letter.charCodeAt(0)-1039;
     let keyCode = keyItem.charCodeAt(0)-1039;

@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
+import {decode, encode} from "../helpers/labFive";
 import {Button, FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
-import {decode, encode} from "../helpers/labOne";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
+import {getGamma} from "../helpers/common";
 import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
-
-const LabOne = () => {
+const LabFive = () => {
     const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
+    const [keyWord, setKeyWord] = useState('');
     const [result, setResult] = useState('');
     const [interactive, setInteractive] = useState(false);
 
@@ -16,6 +17,10 @@ const LabOne = () => {
         setMode(m);
         if (!interactive)setSource('');
     };
+
+    useEffect(()=>{
+        setKeyWord(getGamma(45));
+    },[])
 
     const getFile = async (e) => {
         e.preventDefault()
@@ -28,12 +33,12 @@ const LabOne = () => {
     }
 
     const shifr =()=>{
-        setResult(encode(source));
+        setResult(encode(source,keyWord));
     }
 
     useEffect(()=>{
         if(source.length>0){
-            mode==='encode'?shifr():setResult(decode(source));
+            mode==='encode'?shifr():setResult(decode(source,keyWord));
         }
         else setResult('')
     },[source,mode])
@@ -50,7 +55,7 @@ const LabOne = () => {
 
     return (
         <Stack spacing={3}>
-            <Title text={'"Сказочный" алгоритм'}/>
+            <Title text={'Метод гаммирования'}/>
             <Stack justifyContent={'flex-end'}
                    direction="row">
                 <FormGroup>
@@ -64,6 +69,16 @@ const LabOne = () => {
                     Загрузить файл
                     <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
                 </Button>
+                <TextField
+                    disabled
+                    style={{width:'50%'}}
+                    size={'small'}
+                    id="outlined-multiline-flexible"
+                    label="Ключ"
+                    multiline
+                    onChange={e=>setKeyWord(e.target.value.toUpperCase())}
+                    value={keyWord}
+                />
                 <ToggleButtonGroup
                     color="primary"
                     value={mode}
@@ -96,4 +111,4 @@ const LabOne = () => {
     );
 };
 
-export default LabOne;
+export default LabFive;

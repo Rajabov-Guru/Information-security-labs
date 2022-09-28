@@ -11,6 +11,7 @@ import {
 import {decode, encode} from "../helpers/labTwo";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
+import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 
 const M = 7;
@@ -55,10 +56,16 @@ const ShifrTable = ({words})=>{
 
 
 const LabTwo = () => {
+    const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [result, setResult] = useState('');
     const [words, setWords] = useState([]);
     const [interactive, setInteractive] = useState(false);
+
+    const modeChange = (event, m) => {
+        setMode(m);
+        if (!interactive)setSource('');
+    };
 
 
     const getFile = async (e) => {
@@ -78,19 +85,19 @@ const LabTwo = () => {
     }
 
     const deshifr =()=>{
-        const str = decode(result,M,N);
+        const str = decode(source,M,N);
         setResult(str)
     }
 
     useEffect(()=>{
         if(source.length>0){
-            shifr();
+            mode==='encode'?shifr():deshifr();
         }
         else {
             setResult('');
             setWords([]);
         }
-    },[source])
+    },[source, mode])
 
     useEffect(()=>{
         setSource('');
@@ -113,13 +120,21 @@ const LabTwo = () => {
                     } label="Вручную" />
                 </FormGroup>
             </Stack>
-            <Button variant="contained" component="label" disabled={interactive}>
-                Загрузить файл
-                <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
-            </Button>
             <StackRow>
-                <Button onClick={()=>shifr()}>Зашифровать</Button>
-                <Button onClick={()=>deshifr()}>Расшифровать</Button>
+                <Button variant="contained" component="label" disabled={interactive}>
+                    Загрузить файл
+                    <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
+                </Button>
+                <ToggleButtonGroup
+                    color="primary"
+                    value={mode}
+                    exclusive
+                    onChange={modeChange}
+                    aria-label="Platform"
+                >
+                    <ToggleButton value="encode">Шифровка</ToggleButton>
+                    <ToggleButton value="decode">Дешифровка</ToggleButton>
+                </ToggleButtonGroup>
             </StackRow>
             <Stack direction="row" justifyContent={'center'}>
                 <ShifrTable words={words}/>

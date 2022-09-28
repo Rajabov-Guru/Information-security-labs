@@ -3,11 +3,18 @@ import {decode, encode} from "../helpers/labThree";
 import {Button, FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
+import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 const LabThree = () => {
+    const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [result, setResult] = useState('');
     const [interactive, setInteractive] = useState(false);
+
+    const modeChange = (event, m) => {
+        setMode(m);
+        if (!interactive)setSource('');
+    };
 
     const getFile = async (e) => {
         e.preventDefault()
@@ -25,10 +32,10 @@ const LabThree = () => {
 
     useEffect(()=>{
         if(source.length>0){
-            shifr();
+            mode==='encode'?shifr():setResult(decode(source));
         }
         else setResult('')
-    },[source])
+    },[source,mode])
 
     useEffect(()=>{
         setSource('');
@@ -51,13 +58,21 @@ const LabThree = () => {
                     } label="Вручную" />
                 </FormGroup>
             </Stack>
-            <Button variant="contained" component="label" disabled={interactive}>
-                Загрузить файл
-                <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
-            </Button>
             <StackRow>
-                <Button onClick={()=>shifr()}>Зашифровать</Button>
-                <Button onClick={()=>setResult(decode(result))}>Расшифровать</Button>
+                <Button variant="contained" component="label" disabled={interactive}>
+                    Загрузить файл
+                    <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
+                </Button>
+                <ToggleButtonGroup
+                    color="primary"
+                    value={mode}
+                    exclusive
+                    onChange={modeChange}
+                    aria-label="Platform"
+                >
+                    <ToggleButton value="encode">Шифровка</ToggleButton>
+                    <ToggleButton value="decode">Дешифровка</ToggleButton>
+                </ToggleButtonGroup>
             </StackRow>
             <StackRow>
                 <TextField

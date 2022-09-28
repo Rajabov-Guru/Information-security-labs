@@ -3,12 +3,19 @@ import {decode, encode} from "../helpers/labFour";
 import {Button, FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
+import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 const LabFour = () => {
+    const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [keyWord, setKeyWord] = useState('НЕБОСКРЕБ');
     const [result, setResult] = useState('');
     const [interactive, setInteractive] = useState(false);
+
+    const modeChange = (event, m) => {
+        setMode(m);
+        if (!interactive)setSource('');
+    };
 
     const getFile = async (e) => {
         e.preventDefault()
@@ -26,10 +33,10 @@ const LabFour = () => {
 
     useEffect(()=>{
         if(source.length>0){
-            shifr();
+            mode==='encode'?shifr():setResult(decode(source,keyWord));
         }
         else setResult('')
-    },[source])
+    },[source,mode])
 
     useEffect(()=>{
         setSource('');
@@ -52,11 +59,11 @@ const LabFour = () => {
                     } label="Вручную" />
                 </FormGroup>
             </Stack>
-            <Button variant="contained" component="label" disabled={interactive}>
-                Загрузить файл
-                <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
-            </Button>
-            <Stack alignItems={'center'}>
+            <StackRow>
+                <Button variant="contained" component="label" disabled={interactive}>
+                    Загрузить файл
+                    <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
+                </Button>
                 <TextField
                     style={{width:'50%'}}
                     size={'small'}
@@ -66,10 +73,16 @@ const LabFour = () => {
                     onChange={e=>setKeyWord(e.target.value.toUpperCase())}
                     value={keyWord}
                 />
-            </Stack>
-            <StackRow>
-                <Button onClick={()=>shifr()}>Зашифровать</Button>
-                <Button onClick={()=>setResult(decode(result,keyWord))}>Расшифровать</Button>
+                <ToggleButtonGroup
+                    color="primary"
+                    value={mode}
+                    exclusive
+                    onChange={modeChange}
+                    aria-label="Platform"
+                >
+                    <ToggleButton value="encode">Шифровка</ToggleButton>
+                    <ToggleButton value="decode">Дешифровка</ToggleButton>
+                </ToggleButtonGroup>
             </StackRow>
             <StackRow>
                 <TextField
