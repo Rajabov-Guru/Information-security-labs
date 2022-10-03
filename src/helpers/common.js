@@ -52,22 +52,20 @@ export function subtractLetterByKey(letter, keyItem){
 }
 
 
-export function moveLetter(letter, left=false){
+export function moveLetter(letter,k, left=false){
     let code = letter.charCodeAt(0);
-    let code2 =code;
+    let code2 =code-1039;
     if(code>=1040 && code<=1071){
         if(!left){
-            if(code===1071){
-                code2 = 1040;
-            }else code2 ++;
+            code2 = (code2+k+32)%32;
         }
         else{
-            if(code===1040){
-                code2 = 1071;
-            }else code2 --;
+            code2 = (code2-k+32)%32;
         }
     }
-    return String.fromCharCode(code2);
+
+    code2 = code2===0?32:code2;
+    return String.fromCharCode(code2+1039);
 }
 
 export function removeChars(s) {

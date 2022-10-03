@@ -42,13 +42,13 @@ const ShifrTable = ({words})=>{
                     )}
                 </tr>
             )}
-            {getEmptyRows(words.length).map(item=>
-                <tr>
-                    {item.split('').map(letter=>
-                        <td>{letter}</td>
-                    )}
-                </tr>
-            )}
+            {/*{getEmptyRows(words.length).map(item=>*/}
+            {/*    <tr>*/}
+            {/*        {item.split('').map(letter=>*/}
+            {/*            <td>{letter}</td>*/}
+            {/*        )}*/}
+            {/*    </tr>*/}
+            {/*)}*/}
             </tbody>
         </table>
     );

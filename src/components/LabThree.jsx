@@ -6,6 +6,7 @@ import StackRow from "./common/StackRow";
 import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 const LabThree = () => {
+    const [key, setKey] = useState(1);
     const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [result, setResult] = useState('');
@@ -27,12 +28,12 @@ const LabThree = () => {
     }
 
     const shifr =()=>{
-        setResult(encode(source));
+        setResult(encode(source,key));
     }
 
     useEffect(()=>{
         if(source.length>0){
-            mode==='encode'?shifr():setResult(decode(source));
+            mode==='encode'?shifr():setResult(decode(source,key));
         }
         else setResult('')
     },[source,mode])
