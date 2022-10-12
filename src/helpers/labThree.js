@@ -1,7 +1,7 @@
-import {moveLetter} from "./common";
+import {moveLetter, removeChars} from "./common";
 
 export function encode(text,key){
-    let arr = text.toUpperCase().split('');
+    let arr = removeChars(text).toUpperCase().split('');
     for (let i = 0; i < arr.length; i++) {
         arr[i] = moveLetter(arr[i],key);
     }

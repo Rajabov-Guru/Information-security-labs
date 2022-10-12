@@ -1,8 +1,8 @@
-import {subtractLetterByKey, sumLetterByKey} from "./common";
+import {removeChars, subtractLetterByKey, sumLetterByKey, toWords} from "./common";
 
 
 export function encode(text,key){
-    let arr = text.toUpperCase().split('');
+    let arr = removeChars(text).toUpperCase().split('');
     if(key.length<arr.length){
         key = key.repeat(Math.ceil(arr.length/key.length)).substring(0,arr.length);
     }
@@ -11,12 +11,12 @@ export function encode(text,key){
         arr[i] =sumLetterByKey(arr[i], key[i])
     }
 
-    return arr.join('');
+    return toWords(arr.join(''),4).join('\n');
 
 }
 
 export function decode(text,key){
-    let arr = text.toUpperCase().split('');
+    let arr = text.toUpperCase().split('\n').join('').split('');
     if(key.length<arr.length){
         key = key.repeat(Math.ceil(arr.length/key.length)).substring(0,arr.length);
     }
@@ -25,6 +25,6 @@ export function decode(text,key){
         arr[i] =subtractLetterByKey(arr[i], key[i])
     }
 
-    return arr.join('');
+    return toWords(arr.join(''),4).join('\n');
 
 }

@@ -29,7 +29,7 @@ export function runEncode(text, key){
     let step2 = arr2.join('');
 
 
-    step2 = step2.replace(/\s/g,'_');
+    // step2 = step2.replace(/\s/g,'_');
     if(step2.length>m*n){
         step2 = step2.substring(0,m*n-1);
     }
@@ -37,7 +37,7 @@ export function runEncode(text, key){
 
     let shifrWords = new Array(m);
     for (let i = 0; i < n; i++) {
-        for (let j = 0; j < m; j++) {
+        for (let j = 0; j < words.length; j++) {
             if(words[j] && i<words[j].length) {
                 if(shifrWords[i]) shifrWords[i] += words[j][i];
                 else shifrWords[i] = words[j][i];
@@ -48,7 +48,7 @@ export function runEncode(text, key){
             }
         }
     }
-    let step3 = shifrWords.join('');
+    let step3 = shifrWords.join('')+String.fromCharCode(words.length+1039);
 
     return {
         step1,
@@ -59,9 +59,10 @@ export function runEncode(text, key){
 }
 
 export function runDecode(text, key){
-    let words = toWords(text,m);
+    let tableKey = text[text.length-1].charCodeAt(0)-1039;
+    let words = toWords(text.substring(0,text.length-1),tableKey);
     let shifrWords = new Array(m);
-    for (let i = 0; i < m; i++) {
+    for (let i = 0; i < tableKey; i++) {
         for (let j = 0; j < n; j++) {
             if(words[j] && i<words[j].length) {
                 if(shifrWords[i]) shifrWords[i] += words[j][i];
