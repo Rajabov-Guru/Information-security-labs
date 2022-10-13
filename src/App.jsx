@@ -1,4 +1,3 @@
-import './App.css';
 import {Container} from "@mui/material";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';

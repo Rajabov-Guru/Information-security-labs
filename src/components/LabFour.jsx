@@ -6,6 +6,7 @@ import StackRow from "./common/StackRow";
 import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 const LabFour = () => {
+    const [downloadRef, setRef] = useState('#');
     const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [keyWord, setKeyWord] = useState('НЕБОСКРЕБ');
@@ -28,7 +29,10 @@ const LabFour = () => {
     }
 
     const shifr =()=>{
-        setResult(encode(source,keyWord));
+        const text = encode(source,keyWord);
+        setResult(text);
+        let type = `data:text/plain;content-disposition=attachment;filename=Result.txt, ${text}`;
+        setRef(type);
     }
 
     useEffect(()=>{
@@ -101,6 +105,7 @@ const LabFour = () => {
                     value={result}
                 />
             </StackRow>
+            <a download={'Result.txt'} id={'test'} href={downloadRef}>Скачать</a>
         </Stack>
     );
 };
