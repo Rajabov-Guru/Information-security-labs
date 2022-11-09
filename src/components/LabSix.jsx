@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {decode, encode} from "../helpers/labFour";
 import {Button, FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
@@ -7,6 +6,7 @@ import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import {runDecode, runEncode} from "../helpers/labSix";
 
 const LabSix = () => {
+    const [downloadRef, setRef] = useState('#');
     const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [keyWord, setKeyWord] = useState('2718');
@@ -29,26 +29,28 @@ const LabSix = () => {
     }
 
     const shifr =()=>{
-        setResult(encode(source,keyWord));
+        let {step1,step2,step3} = runEncode(source,keyWord);
+        setResult(step3);
+        console.log(step1);
+        console.log(step2);
+        console.log(step3);
+        let type = `data:text/plain;content-disposition=attachment;filename=Result.txt,${step3}`;
+        setRef(type);
+    }
+
+    const deshifr =()=>{
+        let {step1,step2,step3} = runDecode(source,keyWord);
+        setResult(step3);
+        console.log(step1);
+        console.log(step2);
+        console.log(step3);
+        let type = `data:text/plain;content-disposition=attachment;filename=Result.txt,${step3}`;
+        setRef(type);
     }
 
     useEffect(()=>{
         if(source.length>0){
-            if(mode==='encode') {
-                let {step1,step2,step3} = runEncode(source,keyWord);
-                setResult(step3);
-                console.log(step1);
-                console.log(step2);
-                console.log(step3);
-            }
-            else{
-                let {step1,step2,step3} = runDecode(source,keyWord);
-                setResult(step3);
-                console.log(step1);
-                console.log(step2);
-                console.log(step3);
-            }
-            // mode==='encode'?shifr():setResult(decode(source,keyWord));
+            mode==='encode'?shifr():deshifr();
         }
         else setResult('')
     },[source,mode])
@@ -116,6 +118,7 @@ const LabSix = () => {
                     value={result}
                 />
             </StackRow>
+            <a download={'Result.txt'} id={'test'} href={downloadRef}>Скачать</a>
         </Stack>
     );
 };

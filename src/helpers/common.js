@@ -1,3 +1,42 @@
+export function XOR(n1,n2){
+    let result = [];
+    for(let i=0;i<n1.length;i++){
+        result.push(n1[i]^n2[i]);
+    }
+    return result.join('');
+}
+
+export function randomInteger(min, max) {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+}
+
+export function NOD () {
+    for (var x = arguments[0], i = 1; i < arguments.length; i++) {
+        var y = arguments[i];
+        while (x && y) {
+            x > y ? x %= y : y %= x;
+        }
+        x += y;
+    }
+    return x;
+}
+
+export function euler(N){
+    let result =[];
+    let i = 0;
+    let n = 2;
+    while(n<N){
+        if(NOD(N,n)===1){
+            result.push(n);
+            i++;
+        }
+        n++;
+    }
+    return result;
+}
+
+
 
 export function getRandomNumbers(n){
     let numbers = [];

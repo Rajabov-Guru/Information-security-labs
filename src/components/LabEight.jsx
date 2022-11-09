@@ -1,22 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {decode, encode} from "../helpers/labFour";
 import {Button, FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
 import Title from "./common/Title";
 import StackRow from "./common/StackRow";
-import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import {getHash} from "../helpers/labEight";
 
-const LabFour = () => {
+
+const LabEight = () => {
     const [downloadRef, setRef] = useState('#');
-    const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
-    const [keyWord, setKeyWord] = useState('НЕБОСКРЕБ');
     const [result, setResult] = useState('');
     const [interactive, setInteractive] = useState(false);
-
-    const modeChange = (event, m) => {
-        setMode(m);
-        if (!interactive)setSource('');
-    };
 
     const getFile = async (e) => {
         e.preventDefault()
@@ -29,14 +22,7 @@ const LabFour = () => {
     }
 
     const shifr =()=>{
-        const text = encode(source,keyWord);
-        setResult(text);
-        let type = `data:text/plain;content-disposition=attachment;filename=Result.txt,${text}`;
-        setRef(type);
-    }
-
-    const deshifr = () =>{
-        const text = decode(source,keyWord);
+        const text = getHash(source,17,19).toString();
         setResult(text);
         let type = `data:text/plain;content-disposition=attachment;filename=Result.txt,${text}`;
         setRef(type);
@@ -44,10 +30,10 @@ const LabFour = () => {
 
     useEffect(()=>{
         if(source.length>0){
-            mode==='encode'?shifr():deshifr();
+            shifr();
         }
         else setResult('')
-    },[source,mode])
+    },[source])
 
     useEffect(()=>{
         setSource('');
@@ -61,7 +47,7 @@ const LabFour = () => {
 
     return (
         <Stack spacing={3}>
-            <Title text={'Метод Вижинера'}/>
+            <Title text={'Хеширование'}/>
             <Stack justifyContent={'flex-end'}
                    direction="row">
                 <FormGroup>
@@ -75,25 +61,6 @@ const LabFour = () => {
                     Загрузить файл
                     <input onChange={e=>getFile(e)} hidden accept=".txt" multiple type="file" />
                 </Button>
-                <TextField
-                    style={{width:'50%'}}
-                    size={'small'}
-                    id="outlined-multiline-flexible"
-                    label="Ключ"
-                    multiline
-                    onChange={e=>setKeyWord(e.target.value.toUpperCase())}
-                    value={keyWord}
-                />
-                <ToggleButtonGroup
-                    color="primary"
-                    value={mode}
-                    exclusive
-                    onChange={modeChange}
-                    aria-label="Platform"
-                >
-                    <ToggleButton value="encode">Шифровка</ToggleButton>
-                    <ToggleButton value="decode">Дешифровка</ToggleButton>
-                </ToggleButtonGroup>
             </StackRow>
             <StackRow>
                 <TextField
@@ -117,4 +84,4 @@ const LabFour = () => {
     );
 };
 
-export default LabFour;
+export default LabEight;

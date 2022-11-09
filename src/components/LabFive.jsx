@@ -7,6 +7,7 @@ import {getGamma} from "../helpers/common";
 import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 const LabFive = () => {
+    const [downloadRef, setRef] = useState('#');
     const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [keyWord, setKeyWord] = useState('');
@@ -19,7 +20,7 @@ const LabFive = () => {
     };
 
     useEffect(()=>{
-        setKeyWord(getGamma(45));
+        setKeyWord(getGamma(10));
     },[])
 
     const getFile = async (e) => {
@@ -27,18 +28,28 @@ const LabFive = () => {
         const exampleFileReader = new FileReader()
         exampleFileReader.onload = async (e) => {
             const text = (e.target.result);
-            setSource(text.toString().substring(0,118));
+            setSource(text.toString().substring(0,118).trim());
         };
         exampleFileReader.readAsText(e.target.files[0])
     }
 
+    const deshifr =()=>{
+        const text = decode(source,keyWord);
+        setResult(text);
+        let type = `data:text/plain;content-disposition=attachment;filename=Result.txt,${text}`;
+        setRef(type);
+    }
+
     const shifr =()=>{
-        setResult(encode(source,keyWord));
+        const text = encode(source,keyWord);
+        setResult(text);
+        let type = `data:text/plain;content-disposition=attachment;filename=Result.txt,${text}`;
+        setRef(type);
     }
 
     useEffect(()=>{
         if(source.length>0){
-            mode==='encode'?shifr():setResult(decode(source,keyWord));
+            mode==='encode'?shifr():deshifr();
         }
         else setResult('')
     },[source,mode])
@@ -107,6 +118,7 @@ const LabFive = () => {
                     value={result}
                 />
             </StackRow>
+            <a download={'Result.txt'} id={'test'} href={downloadRef}>Скачать</a>
         </Stack>
     );
 };

@@ -6,7 +6,7 @@ import StackRow from "./common/StackRow";
 import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 
 const LabThree = () => {
-    const [key, setKey] = useState(36);
+    const [key, setKey] = useState(1);
     const [mode, setMode] =useState('encode');
     const [source, setSource] = useState('');
     const [result, setResult] = useState('');
