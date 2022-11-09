@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Information-security-labs/static/js/main.35abca6a.js",
+    "main.js": "/Information-security-labs/static/js/main.b0a78999.js",
     "index.html": "/Information-security-labs/index.html",
-    "main.35abca6a.js.map": "/Information-security-labs/static/js/main.35abca6a.js.map"
+    "main.b0a78999.js.map": "/Information-security-labs/static/js/main.b0a78999.js.map"
   },
   "entrypoints": [
-    "static/js/main.35abca6a.js"
+    "static/js/main.b0a78999.js"
   ]
 }
