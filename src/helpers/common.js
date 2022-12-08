@@ -83,7 +83,7 @@ export function subtractLetterByKey(letter, keyItem){
 
 export function moveLetter(letter,k, left=false){
     let code = letter.charCodeAt(0);
-    let code2 =code-1039;
+    let code2 = code-1039;
     if(code>=1040 && code<=1071){
         if(!left){
             code2 = (code2+k+32)%32;

@@ -13,14 +13,15 @@ import LabFive from "./components/LabFive";
 import LabSix from "./components/LabSix";
 import LabSeven from "./components/LabSeven";
 import LabEight from "./components/LabEight";
+import LabNine from "./components/LabNine";
 
 const getTabs = ()=>{
     const tabs = [];
     for (let i = 0; i < 14; i+=2) {
         tabs.push(`Лаб. ${i+1} - ${i+2}`);
     }
-    tabs.push(`Лаб. 15`);
-    tabs.push(`Лаб. ${16} - ${17}`);
+    tabs.push(`Лаб. 15_1`);
+    tabs.push(`Лаб. ${15}_2`);
     return tabs;
 }
 
@@ -69,6 +70,9 @@ function App() {
               </TabPanel>
               <TabPanel value={'8'}>
                   <LabEight/>
+              </TabPanel>
+              <TabPanel value={'9'}>
+                  <LabNine/>
               </TabPanel>
           </TabContext>
       </Container>

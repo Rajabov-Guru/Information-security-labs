@@ -26,7 +26,5 @@ export function getHash(text,p,q){
         H = kop.toString(2);
         if(H.length%2!==0) H = `0${H}`;
     }
-
-
     return parseInt(H,2);
 }
